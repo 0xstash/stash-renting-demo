@@ -8446,10 +8446,10 @@
   dependencies:
     "type-fest" "^0.7.1"
 
-"stash-renting-sdk@^0.0.1-l":
-  "integrity" "sha512-HE4JjmFgYsUo+C+Ou3eDU/Nl7kgpHCBDBQa0A1hJfVmIO5/ufklRzgkKRCft1jkhTwMVYbwObuRKfznP0aaruw=="
-  "resolved" "https://registry.npmjs.org/stash-renting-sdk/-/stash-renting-sdk-0.0.1-l.tgz"
-  "version" "0.0.1-l"
+"stash-renting-sdk@^0.0.1-r":
+  "integrity" "sha512-emTzWZ5ZYmiGlPObUGa81VuM6jXb0ZYljK+KhSXlneP/nEPUGGE4zQ7+zYJX83QG8moGDiPAvc95xAi02AJI9A=="
+  "resolved" "https://registry.npmjs.org/stash-renting-sdk/-/stash-renting-sdk-0.0.1-r.tgz"
+  "version" "0.0.1-r"
   dependencies:
     "@ethersproject/abstract-signer" "^5.7.0"
     "@ethersproject/bignumber" "^5.7.0"
