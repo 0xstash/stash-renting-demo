@@ -1597,14 +1597,9 @@
   dependencies:
     "glob" "7.1.7"
 
-"@next/swc-linux-x64-gnu@12.3.0":
-  "integrity" "sha512-4ajhIuVU9PeQCMMhdDgZTLrHmjbOUFuIyg6J19hZqwEwDTSqQyrSLkbJs2Nd7IRiM6Ul/XyrtEFCpk4k+xD2+w=="
-  "resolved" "https://registry.npmjs.org/@next/swc-linux-x64-gnu/-/swc-linux-x64-gnu-12.3.0.tgz"
-  "version" "12.3.0"
-
-"@next/swc-linux-x64-musl@12.3.0":
-  "integrity" "sha512-U092RBYbaGxoMAwpauePJEu2PuZSEoUCGJBvsptQr2/2XIMwAJDYM4c/M5NfYEsBr+yjvsYNsOpYfeQ88D82Yg=="
-  "resolved" "https://registry.npmjs.org/@next/swc-linux-x64-musl/-/swc-linux-x64-musl-12.3.0.tgz"
+"@next/swc-darwin-x64@12.3.0":
+  "integrity" "sha512-2scC4MqUTwGwok+wpVxP+zWp7WcCAVOtutki2E1n99rBOTnUOX6qXkgxSy083yBN6GqwuC/dzHeN7hIKjavfRA=="
+  "resolved" "https://registry.npmjs.org/@next/swc-darwin-x64/-/swc-darwin-x64-12.3.0.tgz"
   "version" "12.3.0"
 
 "@noble/hashes@~1.1.1", "@noble/hashes@1.1.2":
@@ -1782,14 +1777,9 @@
     "deep-eql" "^4.0.1"
     "ordinal" "^1.0.3"
 
-"@nomicfoundation/solidity-analyzer-linux-x64-gnu@0.0.3":
-  "integrity" "sha512-uRfVDlxtwT1vIy7MAExWAkRD4r9M79zMG7S09mCrWUn58DbLs7UFl+dZXBX0/8FTGYWHhOT/1Etw1ZpAf5DTrg=="
-  "resolved" "https://registry.npmjs.org/@nomicfoundation/solidity-analyzer-linux-x64-gnu/-/solidity-analyzer-linux-x64-gnu-0.0.3.tgz"
-  "version" "0.0.3"
-
-"@nomicfoundation/solidity-analyzer-linux-x64-musl@0.0.3":
-  "integrity" "sha512-8HPwYdLbhcPpSwsE0yiU/aZkXV43vlXT2ycH+XlOjWOnLfH8C41z0njK8DHRtEFnp4OVN6E7E5lHBBKDZXCliA=="
-  "resolved" "https://registry.npmjs.org/@nomicfoundation/solidity-analyzer-linux-x64-musl/-/solidity-analyzer-linux-x64-musl-0.0.3.tgz"
+"@nomicfoundation/solidity-analyzer-darwin-x64@0.0.3":
+  "integrity" "sha512-HuJd1K+2MgmFIYEpx46uzwEFjvzKAI765mmoMxy4K+Aqq1p+q7hHRlsFU2kx3NB8InwotkkIq3A5FLU1sI1WDw=="
+  "resolved" "https://registry.npmjs.org/@nomicfoundation/solidity-analyzer-darwin-x64/-/solidity-analyzer-darwin-x64-0.0.3.tgz"
   "version" "0.0.3"
 
 "@nomicfoundation/solidity-analyzer@^0.0.3":
@@ -2148,10 +2138,10 @@
     "superstruct" "^0.14.2"
     "tweetnacl" "^1.0.3"
 
-"@stash-nft/rental-contracts@^0.0.6":
-  "integrity" "sha512-xY5fIPwHVv1KuAGWXPuShe/WOdzrSrK+Qc6Fgsx0lDugv1eAPJOa9gSJYHhJ3KCc/SOHpnCSNohnu5/FwF9NHQ=="
-  "resolved" "https://registry.npmjs.org/@stash-nft/rental-contracts/-/rental-contracts-0.0.6.tgz"
-  "version" "0.0.6"
+"@stash-nft/rental-contracts@^0.0.7", "@stash-nft/rental-contracts@0.0.7":
+  "integrity" "sha512-hDz0MVIMDZ2Nqn3osvo46w1CMP7NbEjqWTYnGjRkbkQop6BOXhwSNKyxYgndTUkPsyIIcYrmgjO+G91z/W9kug=="
+  "resolved" "https://registry.npmjs.org/@stash-nft/rental-contracts/-/rental-contracts-0.0.7.tgz"
+  "version" "0.0.7"
 
 "@swc/helpers@0.4.11":
   "integrity" "sha512-rEUrBSGIoSFuYxwBYtlUFMlE2CwGhmW+w9355/5oduSw8e5h2+Tj4UrAGNNgP9915++wj5vkQo0UuOBqOAq4nw=="
@@ -5135,6 +5125,11 @@
   "integrity" "sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw=="
   "resolved" "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   "version" "1.0.0"
+
+"fsevents@^2.1.2", "fsevents@~2.3.2":
+  "integrity" "sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA=="
+  "resolved" "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz"
+  "version" "2.3.2"
 
 "function-bind@^1.1.1":
   "integrity" "sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A=="
@@ -8446,10 +8441,10 @@
   dependencies:
     "type-fest" "^0.7.1"
 
-"stash-renting-sdk@^0.0.1-y":
-  "integrity" "sha512-xIsPwH926fG8sCCqbOW1T10LJ1oyCmRyGVT9iYnmC7YoVge1u+uFNNaahixypjTULRsjNdkrVnzqha+k6TxCDw=="
-  "resolved" "https://registry.npmjs.org/stash-renting-sdk/-/stash-renting-sdk-0.0.1-y.tgz"
-  "version" "0.0.1-y"
+"stash-renting-sdk@^0.0.2-f":
+  "integrity" "sha512-0jYAu71WBSSAXBEHwvcLezh1j3sKRPRMQ9x/g5/ZFIqf0QMgRniY4ACkWPdssZ7XNVby7rKkAmkZ40xP2ysfwA=="
+  "resolved" "https://registry.npmjs.org/stash-renting-sdk/-/stash-renting-sdk-0.0.2-f.tgz"
+  "version" "0.0.2-f"
   dependencies:
     "@ethersproject/abstract-signer" "^5.7.0"
     "@ethersproject/bignumber" "^5.7.0"
@@ -8457,7 +8452,7 @@
     "@ethersproject/providers" "^5.7.0"
     "@ethersproject/units" "^5.7.0"
     "@ethersproject/wallet" "^5.7.0"
-    "@stash-nft/rental-contracts" "^0.0.6"
+    "@stash-nft/rental-contracts" "0.0.7"
     "axios" "^0.27.2"
     "dotenv" "^16.0.1"
     "ethers" "^5.7.0"
