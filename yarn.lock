@@ -1597,9 +1597,14 @@
   dependencies:
     "glob" "7.1.7"
 
-"@next/swc-darwin-x64@12.3.0":
-  "integrity" "sha512-2scC4MqUTwGwok+wpVxP+zWp7WcCAVOtutki2E1n99rBOTnUOX6qXkgxSy083yBN6GqwuC/dzHeN7hIKjavfRA=="
-  "resolved" "https://registry.npmjs.org/@next/swc-darwin-x64/-/swc-darwin-x64-12.3.0.tgz"
+"@next/swc-linux-x64-gnu@12.3.0":
+  "integrity" "sha512-4ajhIuVU9PeQCMMhdDgZTLrHmjbOUFuIyg6J19hZqwEwDTSqQyrSLkbJs2Nd7IRiM6Ul/XyrtEFCpk4k+xD2+w=="
+  "resolved" "https://registry.npmjs.org/@next/swc-linux-x64-gnu/-/swc-linux-x64-gnu-12.3.0.tgz"
+  "version" "12.3.0"
+
+"@next/swc-linux-x64-musl@12.3.0":
+  "integrity" "sha512-U092RBYbaGxoMAwpauePJEu2PuZSEoUCGJBvsptQr2/2XIMwAJDYM4c/M5NfYEsBr+yjvsYNsOpYfeQ88D82Yg=="
+  "resolved" "https://registry.npmjs.org/@next/swc-linux-x64-musl/-/swc-linux-x64-musl-12.3.0.tgz"
   "version" "12.3.0"
 
 "@noble/hashes@~1.1.1", "@noble/hashes@1.1.2":
@@ -1777,9 +1782,14 @@
     "deep-eql" "^4.0.1"
     "ordinal" "^1.0.3"
 
-"@nomicfoundation/solidity-analyzer-darwin-x64@0.0.3":
-  "integrity" "sha512-HuJd1K+2MgmFIYEpx46uzwEFjvzKAI765mmoMxy4K+Aqq1p+q7hHRlsFU2kx3NB8InwotkkIq3A5FLU1sI1WDw=="
-  "resolved" "https://registry.npmjs.org/@nomicfoundation/solidity-analyzer-darwin-x64/-/solidity-analyzer-darwin-x64-0.0.3.tgz"
+"@nomicfoundation/solidity-analyzer-linux-x64-gnu@0.0.3":
+  "integrity" "sha512-uRfVDlxtwT1vIy7MAExWAkRD4r9M79zMG7S09mCrWUn58DbLs7UFl+dZXBX0/8FTGYWHhOT/1Etw1ZpAf5DTrg=="
+  "resolved" "https://registry.npmjs.org/@nomicfoundation/solidity-analyzer-linux-x64-gnu/-/solidity-analyzer-linux-x64-gnu-0.0.3.tgz"
+  "version" "0.0.3"
+
+"@nomicfoundation/solidity-analyzer-linux-x64-musl@0.0.3":
+  "integrity" "sha512-8HPwYdLbhcPpSwsE0yiU/aZkXV43vlXT2ycH+XlOjWOnLfH8C41z0njK8DHRtEFnp4OVN6E7E5lHBBKDZXCliA=="
+  "resolved" "https://registry.npmjs.org/@nomicfoundation/solidity-analyzer-linux-x64-musl/-/solidity-analyzer-linux-x64-musl-0.0.3.tgz"
   "version" "0.0.3"
 
 "@nomicfoundation/solidity-analyzer@^0.0.3":
@@ -5125,11 +5135,6 @@
   "integrity" "sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw=="
   "resolved" "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   "version" "1.0.0"
-
-"fsevents@^2.1.2", "fsevents@~2.3.2":
-  "integrity" "sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA=="
-  "resolved" "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz"
-  "version" "2.3.2"
 
 "function-bind@^1.1.1":
   "integrity" "sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A=="

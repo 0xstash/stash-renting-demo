@@ -2,7 +2,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useSigner } from 'wagmi'
 import { Stash, NFTStandard, Chain, WrapperFactory, PaymentToken } from 'stash-renting-sdk'
 import { useState } from 'react';
-import { parseEther } from "@ethersproject/units";
+import { parseEther, parseUnits } from "@ethersproject/units";
 
 export default function Home() {
 
@@ -393,7 +393,8 @@ export default function Home() {
         NFTStandard.E721,
         5,
         parseEther("0.001"),
-        '0xb4fbf271143f4fbf7b91a5ded31805e42b2208d6',
+        //'0xb4fbf271143f4fbf7b91a5ded31805e42b2208d6',
+        '0x509Ee0d083DdF8AC028f2a56731412edD63223B9',
         1,
         parseEther("0.01"),
         true,
@@ -401,6 +402,25 @@ export default function Home() {
           console.log('callback triggered',res);
         }
       );
+    }
+  }
+
+  const handleNFTRent = () => {
+    if(signer?._address) {
+      const stash = new Stash(apiKey, signer, Chain.GOERLI, { 
+        ERC721ContractAddress: '0xA66c448232ED4f750A25Bc0dB92dF95ce2c7f78F',
+        ERC721ContractABI: erc721Abi
+      } );
+      const stashMarket = stash.contracts.market;
+
+      stashMarket.rent(
+        parseInt('0x0d'),
+        1,
+        (res) => {
+          console.log('rent callback triggered',res);
+        }
+      )
+      
     }
   }
 
@@ -427,7 +447,7 @@ export default function Home() {
             <p>NFT Address: {nftData?.nft_address}</p>
           </div>}
           <button onClick={handleNFTLend}>Lend Asset</button>
-
+          <button onClick={handleNFTRent}>Rent Asset</button>
         </>
        )
        }
