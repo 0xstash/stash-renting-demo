@@ -380,33 +380,27 @@ export default function Home() {
   const handleNFTLend = () => {
     if(signer?._address) {
       const stash = new Stash(apiKey, signer, Chain.GOERLI, { 
-        ERC721ContractAddress: '0x4748f515277129839d6ea892ded36d6111eacafe',
+        ERC721ContractAddress: '0xA66c448232ED4f750A25Bc0dB92dF95ce2c7f78F',
         ERC721ContractABI: erc721Abi
       } );
       const stashMarket = stash.contracts.market;
 
-      const wrapperFactory = new WrapperFactory(signer, Chain.GOERLI,{ 
-        ERC721ContractAddress: '0x4748f515277129839d6ea892ded36d6111eacafe',
-        ERC721ContractABI: erc721Abi
-      });
-
-      const wrappedAddress = wrapperFactory.contract.getWrappedAddress("0x4748f515277129839d6ea892ded36d6111eacafe");
-
-      stash.contracts.wrapperFactory.wrap(2, NFTStandard.E721, () => {
-        console.log('in here');
-      });
-      // stashMarket.lend(
-      //   PaymentToken.USDC,
-      //   NFTStandard.E721,
-      //   5,
-      //   parseEther("0.001"),
-      //   '0xb4fbf271143f4fbf7b91a5ded31805e42b2208d6',
-      //   1,
-      //   parseEther("0.01"),
-      //   (res) => {
-      //     console.log('callback triggered',res);
-      //   }
-      // );
+      // const txn = stash.contracts.wrapperFactory.wrap(0, NFTStandard.E721, (res) => {
+      //   console.log('in here', res);
+      // });
+      stashMarket.lend(
+        0,
+        NFTStandard.E721,
+        5,
+        parseEther("0.001"),
+        '0xb4fbf271143f4fbf7b91a5ded31805e42b2208d6',
+        1,
+        parseEther("0.01"),
+        true,
+        (res) => {
+          console.log('callback triggered',res);
+        }
+      );
     }
   }
 
