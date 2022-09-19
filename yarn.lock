@@ -9532,10 +9532,10 @@
   dependencies:
     "type-fest" "^0.7.1"
 
-"stash-renting-sdk@^0.0.2-f":
-  "integrity" "sha512-0jYAu71WBSSAXBEHwvcLezh1j3sKRPRMQ9x/g5/ZFIqf0QMgRniY4ACkWPdssZ7XNVby7rKkAmkZ40xP2ysfwA=="
-  "resolved" "https://registry.npmjs.org/stash-renting-sdk/-/stash-renting-sdk-0.0.2-f.tgz"
-  "version" "0.0.2-f"
+"stash-renting-sdk@^0.0.2-g":
+  "integrity" "sha512-0qJ2j7M3eYc5pdyjdrSp66uVhNn5B/iTS4el/eyWnwAqR6oKsvBrFoYOtewDE+oRjGIDuqEceH0mfGOGFeQTSA=="
+  "resolved" "https://registry.npmjs.org/stash-renting-sdk/-/stash-renting-sdk-0.0.2-g.tgz"
+  "version" "0.0.2-g"
   dependencies:
     "@ethersproject/abstract-signer" "^5.7.0"
     "@ethersproject/bignumber" "^5.7.0"

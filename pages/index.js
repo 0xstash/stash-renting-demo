@@ -389,9 +389,9 @@ export default function Home() {
           ERC721ContractABI: erc721Abi
         } );
         const stashMarket = stash.contracts.market;
-  
+
         stashMarket.lend(
-          tokenVal,
+          parseInt(tokenVal),
           NFTStandard.E721,
           5,
           1,
@@ -399,8 +399,18 @@ export default function Home() {
           1,
           10,
           true,
-          (res) => {
-            console.log('callback triggered',res);
+          (success) => {
+            // On success
+            if(success.args.rentalId) {
+              // rentalId in bignumber success.args.rentalId
+              setRentalId(success.args.rentalId.toHexString());
+              //Transaction has success.transactions[0].txn_hash
+            }
+            console.log('success triggered',success);
+          },
+          (error) => {
+            // On error
+            console.log('error triggered',error);
           }
         );
       }
@@ -418,11 +428,17 @@ export default function Home() {
         const stashMarket = stash.contracts.market;
   
         stashMarket.rent(
-          rentalId,
+          parseInt(rentalId),
           1,
-          (res) => {
-            console.log('rent callback triggered',res);
-          }
+          (success) => {
+            // success.success will give the status 
+            // success.transactions[0].txn_hash will give the transactoin hash
+            console.log('rent success callback triggered',success);
+          },
+          (error) => {
+            // On error
+            console.log('error triggered',error);
+          } 
         )
       }
     }
