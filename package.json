@@ -9,10 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.3.4",
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
     "@ethersproject/units": "^5.7.0",
     "@rainbow-me/rainbowkit": "^0.5.3",
     "@stash-nft/rental-contracts": "^0.0.7",
     "ethers": "^5.7.1",
+    "framer-motion": "^6.5.1",
     "next": "12.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
