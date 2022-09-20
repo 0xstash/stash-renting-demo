@@ -10,11 +10,16 @@ export default function Home() {
   const [nftAddress, setNftAddress] = useState();
   const [tokenVal, setToken] = useState();
   const [rentalId, setRentalId] = useState();
+  const [lendBtn, setLendBtn] = useState(false);
+  const [rentBtn, setRentBtn] = useState(false);
+  const [apiBtn, setApiBtn] = useState(false);
+
   const { data: signer } = useSigner();
   const apiKey = '27afdad77ae112cffa47de5c3236a63da959b891';
 
   const handleGetNFTData = async () => {
     if(signer?._address) {
+      setApiBtn(true);
       const stash = new Stash(apiKey, signer, Chain.ETH, '');
       const stashAPI =  stash.contracts.api;
       const contractAddress = '0x001';
@@ -22,9 +27,11 @@ export default function Home() {
       stashAPI.getNFTData(contractAddress, token).then((res) => {
         if(res.data) {
           setNftData(res.data)
+          setApiBtn(false);
         }
       }).catch((err) => {
         console.log('err', err);
+        setApiBtn(false);
       });
     }
   }; 
@@ -383,6 +390,7 @@ export default function Home() {
   const handleNFTLend = () => {
     if(signer?._address) {
       if(nftAddress && tokenVal) {
+        setLendBtn(true);
         const stash = new Stash(apiKey, signer, Chain.GOERLI, { 
           ERC721ContractAddress: nftAddress,
           //'0xF6a106Dc24176A31fBc75daAa4166745Fa8cbc2b',
@@ -405,12 +413,14 @@ export default function Home() {
               // rentalId in bignumber success.args.rentalId
               setRentalId(success.args.rentalId.toHexString());
               //Transaction has success.transactions[0].txn_hash
+              setLendBtn(false);
             }
             console.log('success triggered',success);
           },
           (error) => {
             // On error
             console.log('error triggered',error);
+            setLendBtn(false);
           }
         );
       }
@@ -421,6 +431,7 @@ export default function Home() {
   const handleNFTRent = () => {
     if(signer?._address) {
       if(rentalId) {
+        setRentBtn(true);
         const stash = new Stash(apiKey, signer, Chain.GOERLI, { 
           ERC721ContractAddress: nftAddress,
           ERC721ContractABI: erc721Abi
@@ -434,10 +445,12 @@ export default function Home() {
             // success.success will give the status 
             // success.transactions[0].txn_hash will give the transactoin hash
             console.log('rent success callback triggered',success);
+            setRentBtn(false);
           },
           (error) => {
             // On error
             console.log('error triggered',error);
+            setRentBtn(false);
           } 
         )
       }
@@ -454,7 +467,7 @@ export default function Home() {
             <Flex flexDirection={'column'} gap={5}>
               <Heading size={'md'}>Get NFT Data</Heading>
               <Flex gap={10}>
-                <Button w={'fit-content'} onClick={handleGetNFTData}>Get NFT Data</Button>
+                <Button w={'fit-content'} onClick={handleGetNFTData} isLoading={apiBtn}>Get NFT Data</Button>
                   {nftData &&
                   <Box p={4}  borderWidth='1px' borderRadius='lg' overflow='hidden'>
                     <Text>Token ID: {nftData?.token_id}</Text>
@@ -467,12 +480,12 @@ export default function Home() {
               <Heading size={'md'}>Lend Asset</Heading>
               <Input placeholder='NFT Contract Address' size='md' width={'25%'} value={nftAddress} onChange={(e) => setNftAddress(e.target.value)}/>
               <Input placeholder='Token ID' size='md' width={'25%'} value={tokenVal} onChange={(e) => setToken(e.target.value)}/>
-              <Button w={'fit-content'} onClick={handleNFTLend}>Lend Asset</Button>
+              <Button w={'fit-content'} onClick={handleNFTLend} isLoading={lendBtn}>Lend Asset</Button>
             </Flex>
             <Flex flexDirection={'column'} gap={5}>
               <Heading size={'md'}>Rent Asset</Heading>
               <Input placeholder='Rental Id' size='md' width={'25%'} value={rentalId} onChange={(e) => setRentalId(e.target.value)}/>
-              <Button w={'fit-content'} onClick={handleNFTRent}>Rent Asset</Button>
+              <Button w={'fit-content'} onClick={handleNFTRent} isLoading={rentBtn}>Rent Asset</Button>
             </Flex>
           </Flex>
           
