@@ -2,17 +2,26 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useSigner } from 'wagmi'
 import { Stash, NFTStandard, Chain, WrapperFactory, PaymentToken } from 'stash-renting-sdk'
 import { useState } from 'react';
-import { Box, Button, Flex, Heading, Text, Input } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, Text, Input, FormControl, FormLabel, Switch } from '@chakra-ui/react';
 
 export default function Home() {
 
   const [nftData, setNftData] = useState();
   const [nftAddress, setNftAddress] = useState();
+
   const [tokenVal, setToken] = useState();
   const [rentalId, setRentalId] = useState();
   const [lendBtn, setLendBtn] = useState(false);
   const [rentBtn, setRentBtn] = useState(false);
   const [apiBtn, setApiBtn] = useState(false);
+  const [nftStandard, setNftStandard] = useState(NFTStandard.E721);
+  const [expiry, setExpiry] = useState();
+  const [perDayPrice, setPerDayPrice] = useState();
+  const [erc20Address, setErc20Address] = useState('0xd73D2595A37AC493f8c4c727b4161995F09eEb13');
+  const [revShare, setRevShare] = useState();
+  const [buyPrice, setBuyPrice] = useState();
+  const [wrap, setWrap] = useState(true);
+  const [rentDuration, setRentDuration] = useState(1);
 
   const { data: signer } = useSigner();
   const apiKey = '27afdad77ae112cffa47de5c3236a63da959b891';
@@ -389,7 +398,7 @@ export default function Home() {
 
   const handleNFTLend = () => {
     if(signer?._address) {
-      if(nftAddress && tokenVal) {
+      if(nftAddress && tokenVal && expiry && perDayPrice && erc20Address && revShare && buyPrice) {
         setLendBtn(true);
         const stash = new Stash(apiKey, signer, Chain.GOERLI, { 
           ERC721ContractAddress: nftAddress,
@@ -400,13 +409,13 @@ export default function Home() {
 
         stashMarket.lend(
           parseInt(tokenVal),
-          NFTStandard.E721,
-          5,
-          1,
-          '0xd73D2595A37AC493f8c4c727b4161995F09eEb13',
-          1,
-          10,
-          true,
+          nftStandard,
+          parseInt(expiry),
+          parseFloat(perDayPrice),
+          erc20Address,
+          parseFloat(revShare),
+          parseFloat(buyPrice),
+          wrap,
           (success) => {
             // On success
             if(success.args.rentalId) {
@@ -430,7 +439,7 @@ export default function Home() {
 
   const handleNFTRent = () => {
     if(signer?._address) {
-      if(rentalId) {
+      if(rentalId && rentDuration) {
         setRentBtn(true);
         const stash = new Stash(apiKey, signer, Chain.GOERLI, { 
           ERC721ContractAddress: nftAddress,
@@ -440,7 +449,7 @@ export default function Home() {
   
         stashMarket.rent(
           parseInt(rentalId),
-          1,
+          parseInt(rentDuration),
           (success) => {
             // success.success will give the status 
             // success.transactions[0].txn_hash will give the transactoin hash
@@ -480,11 +489,42 @@ export default function Home() {
               <Heading size={'md'}>Lend Asset</Heading>
               <Input placeholder='NFT Contract Address' size='md' width={'25%'} value={nftAddress} onChange={(e) => setNftAddress(e.target.value)}/>
               <Input placeholder='Token ID' size='md' width={'25%'} value={tokenVal} onChange={(e) => setToken(e.target.value)}/>
+              <FormControl display='flex' alignItems='center'>
+                <FormLabel htmlFor='nftStandard' mb='0'>
+                  E721 / E1155
+                </FormLabel>
+                <Switch id='nftStandard' onChange={(e) => {
+                  if(e.target.checked) {
+                    setNftStandard(NFTStandard.E1155);
+                  } else {
+                    setNftStandard(NFTStandard.E721);
+                  }
+                }} />
+              </FormControl>
+              <Input type={'number'} placeholder='Expiry in days' size='md' width={'25%'} value={expiry} onChange={(e) => setExpiry(e.target.value)}/>
+              <Input type={'number'} placeholder='Per day price' size='md' width={'25%'} value={perDayPrice} onChange={(e) => setPerDayPrice(e.target.value)}/>
+              <Input placeholder='ERC20 Address' size='md' width={'25%'} value={erc20Address} onChange={(e) => setErc20Address(e.target.value)}/>
+              <Input type={'number'} placeholder='Revenue share' size='md' width={'25%'} value={revShare} onChange={(e) => setRevShare(e.target.value)}/>
+              <Input type={'number'} placeholder='Buy price' size='md' width={'25%'} value={buyPrice} onChange={(e) => setBuyPrice(e.target.value)}/>
+              <FormControl display='flex' alignItems='center'>
+                <FormLabel htmlFor='wrap' mb='0'>
+                  Wrap needed ?
+                </FormLabel>
+                <Switch id='wrap' defaultChecked={true} onChange={(e) => {
+                  if(e.target.checked) {
+                    setWrap(true);
+                  } else {
+                    setWrap(false);
+                  }
+                }} />
+              </FormControl>
               <Button w={'fit-content'} onClick={handleNFTLend} isLoading={lendBtn}>Lend Asset</Button>
             </Flex>
             <Flex flexDirection={'column'} gap={5}>
               <Heading size={'md'}>Rent Asset</Heading>
               <Input placeholder='Rental Id' size='md' width={'25%'} value={rentalId} onChange={(e) => setRentalId(e.target.value)}/>
+              <Input type={'number'} placeholder='Rent Duration' size='md' width={'25%'} value={rentDuration} onChange={(e) => setRentDuration(e.target.value)}/>
+
               <Button w={'fit-content'} onClick={handleNFTRent} isLoading={rentBtn}>Rent Asset</Button>
             </Flex>
           </Flex>
