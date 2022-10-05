@@ -14,13 +14,13 @@
     "@emotion/styled": "^11.10.4",
     "@ethersproject/units": "^5.7.0",
     "@rainbow-me/rainbowkit": "^0.5.3",
-    "@stash-nft/rental-contracts": "^0.0.7",
+    "@stash-nft/rental-contracts": "^0.0.9-beta.1",
     "ethers": "^5.7.1",
     "framer-motion": "^6.5.1",
     "next": "12.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "stash-renting-sdk": "^0.0.2-g",
+    "stash-renting-sdk": "^0.0.3-g",
     "wagmi": "^0.6.6"
   },
   "devDependencies": {
