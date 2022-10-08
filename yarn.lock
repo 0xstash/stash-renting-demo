@@ -3040,7 +3040,7 @@
     "superstruct" "^0.14.2"
     "tweetnacl" "^1.0.3"
 
-"@stash-nft/rental-contracts@^0.0.9-beta.1":
+"@stash-nft/rental-contracts@0.0.9-beta.1":
   "integrity" "sha512-jr6h65XA1G4+Pa3qhOmlwOT8DmQNDASJ7DSR/iA3Q3NtehPsB47Ugqe3nJBuVsBvQtsNnpHqSh8cqYNevt40sw=="
   "resolved" "https://registry.npmjs.org/@stash-nft/rental-contracts/-/rental-contracts-0.0.9-beta.1.tgz"
   "version" "0.0.9-beta.1"
@@ -9534,10 +9534,10 @@
   dependencies:
     "type-fest" "^0.7.1"
 
-"stash-renting-sdk@^0.0.3-g":
-  "integrity" "sha512-gWcRdabaZeqUbb80ee4DNSDb2lPPTFjrb5j1j7oGA1id8CnPczxCO4ml8q6Bp1PT3mfRBquPf3A9wzVcs0PwdQ=="
-  "resolved" "https://registry.npmjs.org/stash-renting-sdk/-/stash-renting-sdk-0.0.3-g.tgz"
-  "version" "0.0.3-g"
+"stash-renting-sdk@^0.0.3-k":
+  "integrity" "sha512-+McXHxCtgxuVYlwl+f6QrX+1h/ABuXxsVnPXnVSCF66kviHr6d3zZ2UbJpnpAezhh0gsgrKA83hdlT0oDQmLvA=="
+  "resolved" "https://registry.npmjs.org/stash-renting-sdk/-/stash-renting-sdk-0.0.3-k.tgz"
+  "version" "0.0.3-k"
   dependencies:
     "@ethersproject/abstract-signer" "^5.7.0"
     "@ethersproject/bignumber" "^5.7.0"
@@ -9545,7 +9545,7 @@
     "@ethersproject/providers" "^5.7.0"
     "@ethersproject/units" "^5.7.0"
     "@ethersproject/wallet" "^5.7.0"
-    "@stash-nft/rental-contracts" "^0.0.9-beta.1"
+    "@stash-nft/rental-contracts" "0.0.9-beta.1"
     "axios" "^0.27.2"
     "dotenv" "^16.0.1"
     "ethers" "^5.7.0"

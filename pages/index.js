@@ -7,13 +7,16 @@ import { Box, Button, Flex, Heading, Text, Input, FormControl, FormLabel, Switch
 export default function Home() {
 
   const [nftData, setNftData] = useState();
+  const [payoutRecipients, setPayoutRecipients] = useState();
   const [nftAddress, setNftAddress] = useState();
 
   const [apiKey, setApiKey] = useState('056a11df8ec19003cd4dd4b34e05c55c55c1e06d');
   const [tokenVal, setToken] = useState();
   const [lendBtn, setLendBtn] = useState(false);
+  const [endLendBtn, setEndLendBtn] = useState(false);
   const [rentBtn, setRentBtn] = useState(false);
   const [apiBtn, setApiBtn] = useState(false);
+  const [getRecipientsBtn, setGetRecipientsBtn] = useState(false);
   const [nftStandard, setNftStandard] = useState(NFTStandard.E721);
   const [expiry, setExpiry] = useState();
   const [perDayPrice, setPerDayPrice] = useState();
@@ -144,6 +147,79 @@ export default function Home() {
     }
   }
 
+  const handleEndLend = async () => {
+    if(signer?._address) {
+      if(nftAddress && tokenVal) {
+        setEndLendBtn(true);
+        const stash = new Stash(apiKey, signer, Chain.GOERLI, { 
+          ERC721ContractAddress: nftAddress
+        } );
+        const stashMarket = stash.contracts.market;
+
+        // Uncomment to test unwrapping
+        // try {
+        //   const unwrapTxn = await stash.contracts.wrapperFactory.unwrap(
+        //       parseInt(tokenVal), 
+        //       nftStandard, 
+        //       (res) => {
+        //         console.log('result:', res);
+        //         setEndLendBtn(false);
+        //       },
+        //       (error) => {
+        //         console.log('error triggered', error);
+        //         setEndLendBtn(false);
+        //       });
+        //   await unwrapTxn?.wait();
+        // } catch (exception) {
+        //   console.log('error with exception', exception);
+        //   setEndLendBtn(false);
+        // }
+  
+        await stashMarket.endLend(
+          parseInt(tokenVal),
+          nftStandard,
+          (success) => {
+            console.log('end lend success callback triggered', success);
+            setEndLendBtn(false);
+          },
+          (error) => {
+            // On error
+            console.log('error triggered', error);
+            setEndLendBtn(false);
+          }
+        );
+      }
+    }
+  }
+
+  const handleGetPayoutRecipients = async () => {
+    if(signer?._address) {
+      if(nftAddress && tokenVal) {
+        setGetRecipientsBtn(true);
+        const stash = new Stash(apiKey, signer, Chain.GOERLI, { 
+          ERC721ContractAddress: nftAddress
+        } );
+  
+        const recipients = await stash.getPayoutRecipients(
+          parseInt(tokenVal),
+          nftStandard,
+          (error) => {
+            // On error
+            console.log('error triggered', error);
+            setGetRecipientsBtn(false);
+          }
+        );
+
+        if (recipients) {
+          console.log('recipients successfully fetched', recipients);
+          setPayoutRecipients(recipients);
+        }
+        setGetRecipientsBtn(false);
+      }
+    }
+  }
+
+
   return (
    <Box p={5}>
       <ConnectButton />
@@ -182,6 +258,19 @@ export default function Home() {
               </Flex>
             </Flex>
             <Flex flexDirection={'column'} gap={5}>
+              <Heading size={'md'}>Fetch Payout Recipients</Heading>
+              <Flex gap={10}>
+                <Button w={'fit-content'} onClick={handleGetPayoutRecipients} isLoading={getRecipientsBtn}>Fetch Payout Recipients</Button>
+                  {payoutRecipients &&
+                  <Box p={4}  borderWidth='1px' borderRadius='lg' overflow='hidden'>
+                    <Text>Address: {payoutRecipients[0]?.address}</Text>
+                    <Text>Share Point: {payoutRecipients[0]?.sharePoint}</Text>
+                    <Text>Role: {payoutRecipients[0]?.role}</Text>
+                  </Box>
+                  }
+              </Flex>
+            </Flex>
+            <Flex flexDirection={'column'} gap={5}>
               <Heading size={'md'}>Lend Asset</Heading>
               <Input type={'number'} placeholder='Expiry in days' size='md' width={'35%'} value={expiry} onChange={(e) => setExpiry(e.target.value)}/>
               <Input type={'number'} placeholder='Per day price' size='md' width={'35%'} value={perDayPrice} onChange={(e) => setPerDayPrice(e.target.value)}/>
@@ -195,6 +284,10 @@ export default function Home() {
               <Heading size={'md'}>Rent Asset</Heading>
               <Input type={'number'} placeholder='Rent Duration' size='md' width={'35%'} value={rentDuration} onChange={(e) => setRentDuration(e.target.value)}/>
               <Button w={'fit-content'} onClick={handleNFTRent} isLoading={rentBtn}>Rent Asset</Button>
+            </Flex>
+            <Flex flexDirection={'column'} gap={5}>
+              <Heading size={'md'}>End Lend Asset</Heading>
+              <Button w={'fit-content'} onClick={handleEndLend} isLoading={endLendBtn}>End Lend</Button>
             </Flex>
           </Flex>
           
