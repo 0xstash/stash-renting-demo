@@ -18,6 +18,7 @@ export default function Home() {
   const [apiBtn, setApiBtn] = useState(false);
   const [getRecipientsBtn, setGetRecipientsBtn] = useState(false);
   const [nftStandard, setNftStandard] = useState(NFTStandard.E721);
+  const [amount, setAmount] = useState(1);
   const [expiry, setExpiry] = useState();
   const [perDayPrice, setPerDayPrice] = useState();
   const [erc20Address, setErc20Address] = useState('0xd73D2595A37AC493f8c4c727b4161995F09eEb13');
@@ -47,31 +48,37 @@ export default function Home() {
 
   const handleNFTLend = async () => {
     if(signer?._address) {
-      if(nftAddress && tokenVal && expiry && perDayPrice && erc20Address && revShare && buyPrice && maxRentalDays) {
+      if(nftAddress && tokenVal && expiry && perDayPrice && erc20Address && revShare && buyPrice && maxRentalDays && amount > 0) {
         setLendBtn(true);
         const stash = new Stash(apiKey, signer, Chain.GOERLI, { 
           ERC721ContractAddress: nftAddress
         } );
         const stashMarket = stash.contracts.market;
+
+        // Uncomment for retrieving wrapped address
+        // const wrappedAddress = await stash.contracts.wrapperFactory.getWrappedAddress(nftStandard);
+        // console.log('wrapped address', wrappedAddress);
         
         // Uncomment for testing wrapping
         // var wrappedAddress = null;
         // try {
-          // const wrapTxn = await stash.contracts.wrapperFactory.wrap(
-          //     1, 
-          //     nftStandard, 
-          //     (res) => {
-          //         console.log('result:', res);
-          //         wrappedAddress = res.args.wrappedAddress;
-          //     },
-          //     (error) => {
-          //         if (error) {
-          //             console.log('error', error.message);
-          //         }
-          //     });
-          // await wrapTxn?.wait();
+        //   const wrapTxn = await stash.contracts.wrapperFactory.wrap(
+        //       parseInt(tokenVal), 
+        //       parseInt(amount),
+        //       nftStandard, 
+        //       (res) => {
+        //           console.log('result:', res);
+        //           wrappedAddress = res.args.wrappedAddress;
+        //       },
+        //       (error) => {
+        //           if (error) {
+        //               console.log('error', error.message);
+        //           }
+        //       });
+        //   await wrapTxn?.wait();
         // } catch {
         //   console.log('wrap failed');
+        //   setLendBtn(false);
         // }
         // console.log('wrapped address', wrappedAddress);
 
@@ -91,6 +98,7 @@ export default function Home() {
 
         await stashMarket.lend(
           parseInt(tokenVal),
+          parseInt(amount),
           nftStandard,
           parseInt(expiry),
           parseFloat(perDayPrice),
@@ -100,9 +108,9 @@ export default function Home() {
           parseInt(maxRentalDays),
           (success) => {
             // On success
-            if(success.args.rentalId) {
-              // rentalId in bignumber success.args.rentalId
-              console.log('rental Id', success.args.rentalId.toHexString());
+            if(success.args.termsId) {
+              // termsId in bignumber success.args.termsId
+              console.log('rental Id', success.args.termsId.toHexString());
               //Transaction has success.transactions[0].txn_hash
               setLendBtn(false);
             }
@@ -177,6 +185,7 @@ export default function Home() {
   
         await stashMarket.endLend(
           parseInt(tokenVal),
+          parseInt(amount),
           nftStandard,
           (success) => {
             console.log('end lend success callback triggered', success);
@@ -272,6 +281,9 @@ export default function Home() {
             </Flex>
             <Flex flexDirection={'column'} gap={5}>
               <Heading size={'md'}>Lend Asset</Heading>
+              { (nftStandard == NFTStandard.E1155) &&
+                <Input type={'number'} placeholder='Amount' size='md' width={'35%'} value={amount} onChange={(e) => setAmount(e.target.value)}/>
+              }
               <Input type={'number'} placeholder='Expiry in days' size='md' width={'35%'} value={expiry} onChange={(e) => setExpiry(e.target.value)}/>
               <Input type={'number'} placeholder='Per day price' size='md' width={'35%'} value={perDayPrice} onChange={(e) => setPerDayPrice(e.target.value)}/>
               <Input placeholder='ERC20 Address' size='md' width={'35%'} value={erc20Address} onChange={(e) => setErc20Address(e.target.value)}/>
