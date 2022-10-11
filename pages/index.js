@@ -1,6 +1,6 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useSigner, useNetwork } from 'wagmi'
-import { Stash, NFTStandard, Chain } from 'stash-renting-sdk'
+import { Stash, NFTStandard, Chain, SupportedChain } from 'stash-renting-sdk'
 import { useState, useEffect } from 'react';
 import { Box, Button, Flex, Heading, Text, Input, FormControl, FormLabel, Switch, Alert, AlertIcon } from '@chakra-ui/react';
 
@@ -234,7 +234,7 @@ export default function Home() {
 
   useEffect(() => {
     if(chain) {
-      const exists = Object.values(Chain).includes(chain.id);
+      const exists = Object.values(SupportedChain).includes(chain.id);
       setIsChainCompatible(exists);
       setConnectedChainId(chain.id);
     }
