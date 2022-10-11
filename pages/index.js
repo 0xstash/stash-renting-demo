@@ -1,10 +1,12 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { useSigner } from 'wagmi'
+import { useSigner, useNetwork } from 'wagmi'
 import { Stash, NFTStandard, Chain } from 'stash-renting-sdk'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Button, Flex, Heading, Text, Input, FormControl, FormLabel, Switch } from '@chakra-ui/react';
 
 export default function Home() {
+
+  const [connectedChainId, setConnectedChainId] = useState();
 
   const [nftData, setNftData] = useState();
   const [payoutRecipients, setPayoutRecipients] = useState();
@@ -28,11 +30,12 @@ export default function Home() {
   const [rentDuration, setRentDuration] = useState();
 
   const { data: signer } = useSigner();
+  const { chain } = useNetwork();
 
   const handleGetNFTData = async () => {
     if(signer?._address && nftAddress && tokenVal) {
       setApiBtn(true);
-      const stash = new Stash(apiKey, signer, Chain.ETH, '');
+      const stash = new Stash(apiKey, signer, connectedChainId, '');
       const stashAPI =  stash.contracts.api;
       stashAPI.getAsset(nftAddress, parseInt(tokenVal)).then((res) => {
         if(res.data) {
@@ -50,7 +53,7 @@ export default function Home() {
     if(signer?._address) {
       if(nftAddress && tokenVal && expiry && perDayPrice && erc20Address && revShare && buyPrice && maxRentalDays && amount > 0) {
         setLendBtn(true);
-        const stash = new Stash(apiKey, signer, Chain.GOERLI, { 
+        const stash = new Stash(apiKey, signer, connectedChainId, { 
           ERC721ContractAddress: nftAddress
         } );
         const stashMarket = stash.contracts.market;
@@ -130,7 +133,7 @@ export default function Home() {
     if(signer?._address) {
       if(nftAddress && tokenVal && rentDuration) {
         setRentBtn(true);
-        const stash = new Stash(apiKey, signer, Chain.GOERLI, { 
+        const stash = new Stash(apiKey, signer, connectedChainId, { 
           ERC721ContractAddress: nftAddress
         } );
         const stashMarket = stash.contracts.market;
@@ -159,7 +162,7 @@ export default function Home() {
     if(signer?._address) {
       if(nftAddress && tokenVal) {
         setEndLendBtn(true);
-        const stash = new Stash(apiKey, signer, Chain.GOERLI, { 
+        const stash = new Stash(apiKey, signer, connectedChainId, { 
           ERC721ContractAddress: nftAddress
         } );
         const stashMarket = stash.contracts.market;
@@ -205,7 +208,7 @@ export default function Home() {
     if(signer?._address) {
       if(nftAddress && tokenVal) {
         setGetRecipientsBtn(true);
-        const stash = new Stash(apiKey, signer, Chain.GOERLI, { 
+        const stash = new Stash(apiKey, signer, connectedChainId, { 
           ERC721ContractAddress: nftAddress
         } );
   
@@ -228,6 +231,11 @@ export default function Home() {
     }
   }
 
+  useEffect(() => {
+    if(chain) {
+      setConnectedChainId(chain.id);
+    }
+  }, [chain])
 
   return (
    <Box p={5}>
