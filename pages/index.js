@@ -2,11 +2,12 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useSigner, useNetwork } from 'wagmi'
 import { Stash, NFTStandard, Chain } from 'stash-renting-sdk'
 import { useState, useEffect } from 'react';
-import { Box, Button, Flex, Heading, Text, Input, FormControl, FormLabel, Switch } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, Text, Input, FormControl, FormLabel, Switch, Alert, AlertIcon } from '@chakra-ui/react';
 
 export default function Home() {
 
   const [connectedChainId, setConnectedChainId] = useState();
+  const [isChainCompatible, setIsChainCompatible] = useState(false); 
 
   const [nftData, setNftData] = useState();
   const [payoutRecipients, setPayoutRecipients] = useState();
@@ -233,6 +234,8 @@ export default function Home() {
 
   useEffect(() => {
     if(chain) {
+      const exists = Object.values(Chain).includes(chain.id);
+      setIsChainCompatible(exists);
       setConnectedChainId(chain.id);
     }
   }, [chain])
@@ -240,6 +243,12 @@ export default function Home() {
   return (
    <Box p={5}>
       <ConnectButton />
+      {!isChainCompatible && (
+        <Alert status='error' mt={4}>
+          <AlertIcon />
+          You're on a wrong network. Supported chains are: Goerli, Mumbai and BSC Testnet
+        </Alert>
+      )}
        {signer?._address && 
        (
         <>
