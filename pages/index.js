@@ -18,6 +18,7 @@ export default function Home() {
   const [lendBtn, setLendBtn] = useState(false);
   const [endLendBtn, setEndLendBtn] = useState(false);
   const [rentBtn, setRentBtn] = useState(false);
+  const [buyBtn, setBuyBtn] = useState(false);
   const [apiBtn, setApiBtn] = useState(false);
   const [getRecipientsBtn, setGetRecipientsBtn] = useState(false);
   const [nftStandard, setNftStandard] = useState(NFTStandard.E721);
@@ -36,7 +37,10 @@ export default function Home() {
   const handleGetNFTData = async () => {
     if(signer?._address && nftAddress && tokenVal) {
       setApiBtn(true);
-      const stash = new Stash(apiKey, signer, connectedChainId, '');
+      const stash = new Stash(apiKey, signer, connectedChainId, { 
+        ERC721ContractAddress: nftAddress,
+        ERC1155ContractAddress: nftAddress
+      } );
       const stashAPI =  stash.contracts.api;
       stashAPI.getAsset(nftAddress, parseInt(tokenVal)).then((res) => {
         if(res.data) {
@@ -55,7 +59,8 @@ export default function Home() {
       if(nftAddress && tokenVal && expiry && perDayPrice && erc20Address && revShare && buyPrice && maxRentalDays && amount > 0) {
         setLendBtn(true);
         const stash = new Stash(apiKey, signer, connectedChainId, { 
-          ERC721ContractAddress: nftAddress
+          ERC721ContractAddress: nftAddress,
+          ERC1155ContractAddress: nftAddress
         } );
         const stashMarket = stash.contracts.market;
 
@@ -135,7 +140,8 @@ export default function Home() {
       if(nftAddress && tokenVal && rentDuration) {
         setRentBtn(true);
         const stash = new Stash(apiKey, signer, connectedChainId, { 
-          ERC721ContractAddress: nftAddress
+          ERC721ContractAddress: nftAddress,
+          ERC1155ContractAddress: nftAddress
         } );
         const stashMarket = stash.contracts.market;
   
@@ -164,7 +170,8 @@ export default function Home() {
       if(nftAddress && tokenVal) {
         setEndLendBtn(true);
         const stash = new Stash(apiKey, signer, connectedChainId, { 
-          ERC721ContractAddress: nftAddress
+          ERC721ContractAddress: nftAddress,
+          ERC1155ContractAddress: nftAddress
         } );
         const stashMarket = stash.contracts.market;
 
@@ -199,6 +206,34 @@ export default function Home() {
             // On error
             console.log('error triggered', error);
             setEndLendBtn(false);
+          }
+        );
+      }
+    }
+  }
+
+  const handleBuy = async () => {
+    if(signer?._address) {
+      if(nftAddress && tokenVal) {
+        setBuyBtn(true);
+        const stash = new Stash(apiKey, signer, connectedChainId, { 
+          ERC721ContractAddress: nftAddress,
+          ERC1155ContractAddress: nftAddress
+        } );
+
+        const stashMarket = stash.contracts.market;
+  
+        await stashMarket.buy(
+          parseInt(tokenVal),
+          nftStandard,
+          (success) => {
+            console.log('buy success callback triggered', success);
+            setBuyBtn(false);
+          },
+          (error) => {
+            // On error
+            console.log('error triggered', error);
+            setBuyBtn(false);
           }
         );
       }
@@ -317,6 +352,10 @@ export default function Home() {
             <Flex flexDirection={'column'} gap={5}>
               <Heading size={'md'}>End Lend Asset</Heading>
               <Button w={'fit-content'} onClick={handleEndLend} isLoading={endLendBtn}>End Lend</Button>
+            </Flex>
+            <Flex flexDirection={'column'} gap={5}>
+              <Heading size={'md'}>Buy Asset</Heading>
+              <Button w={'fit-content'} onClick={handleBuy} isLoading={buyBtn}>Buy</Button>
             </Flex>
           </Flex>
           
