@@ -3,6 +3,7 @@ import { useSigner, useNetwork } from 'wagmi'
 import { Stash, NFTStandard, Chain, SupportedChain } from 'stash-renting-sdk'
 import { useState, useEffect } from 'react';
 import { Box, Button, Flex, Heading, Text, Input, FormControl, FormLabel, Switch, Alert, AlertIcon } from '@chakra-ui/react';
+import { ethers } from 'ethers'
 
 export default function Home() {
 
@@ -144,6 +145,33 @@ export default function Home() {
           ERC1155ContractAddress: nftAddress
         } );
         const stashMarket = stash.contracts.market;
+
+      //   const abi = [
+      //     // Read-Only Functions
+      //     "function balanceOf(address owner) view returns (uint256)",
+      //     "function decimals() view returns (uint8)",
+      //     "function symbol() view returns (string)",
+      
+      //     // Authenticated Functions
+      //     "function transfer(address to, uint amount) returns (bool)",
+      
+      //     // Events
+      //     "event Transfer(address indexed from, address indexed to, uint amount)"
+      // ];
+      
+      //   // This can be an address or an ENS name
+      //   const address = "0x07865c6e87b9f70255377e024ace6630c1eaa37f";
+      //   const erc20Contract = new ethers.Contract(address, abi, signer);
+
+      //   const decimals = await erc20Contract.decimals();
+      //   const price = "1.0";
+      //   const parsed = ethers.utils.parseUnits(price, decimals);
+      //   console.log('parsed', parsed);
+      //   setRentBtn(false);
+
+        // const terms = await stashMarket.contract.getRentalTerms(11);
+        // console.log('terms', terms);
+        // setRentBtn(false);
   
         await stashMarket.rent(
           parseInt(tokenVal),

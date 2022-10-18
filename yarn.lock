@@ -3040,10 +3040,10 @@
     "superstruct" "^0.14.2"
     "tweetnacl" "^1.0.3"
 
-"@stash-nft/rental-contracts@^0.0.9-beta.4":
-  "integrity" "sha512-bVE1jnpOemv78BswWDaspePoR1Q3tWG62Ipozne2LhGNOFK3YRenaNDiE81R64jm3gauz1tmnQkJvFmsVJ0s3Q=="
-  "resolved" "https://registry.npmjs.org/@stash-nft/rental-contracts/-/rental-contracts-0.0.9-beta.5.tgz"
-  "version" "0.0.9-beta.5"
+"@stash-nft/rental-contracts@^0.0.9-beta.4", "@stash-nft/rental-contracts@0.0.9-beta.4":
+  "integrity" "sha512-aqz04t4BfNHznM7HwtCR9ATdZvdCEnwymjSXtFIjVrekQ+ax/CsTNPupIqZ/T5hN40ERVs9aUg/Q5zlDZMj1rw=="
+  "resolved" "https://registry.npmjs.org/@stash-nft/rental-contracts/-/rental-contracts-0.0.9-beta.4.tgz"
+  "version" "0.0.9-beta.4"
 
 "@swc/helpers@0.4.11":
   "integrity" "sha512-rEUrBSGIoSFuYxwBYtlUFMlE2CwGhmW+w9355/5oduSw8e5h2+Tj4UrAGNNgP9915++wj5vkQo0UuOBqOAq4nw=="
@@ -3283,11 +3283,6 @@
   dependencies:
     "@typescript-eslint/types" "5.37.0"
     "eslint-visitor-keys" "^3.3.0"
-
-"@ungap/promise-all-settled@1.1.2":
-  "integrity" "sha512-sL/cEvJWAnClXw0wHk85/2L0G6Sj8UB0Ctc1TEMbKSsmpRosqhwj9gWgFRZSrBr2f9tiXISwNhCPmlfqUqyb9Q=="
-  "resolved" "https://registry.npmjs.org/@ungap/promise-all-settled/-/promise-all-settled-1.1.2.tgz"
-  "version" "1.1.2"
 
 "@vanilla-extract/css@^1.0.0", "@vanilla-extract/css@1.7.0":
   "integrity" "sha512-2Abpr5aJskwKS+waMWxWnTBqq/rj4J93KtGteW0VSORMUsijrupwjOXECd7Llh+nSFfx/Y6usuexF5/ffyDF8A=="
@@ -6324,9 +6319,9 @@
   "version" "1.0.4"
 
 "hardhat-helpers@^0.1.16":
-  "integrity" "sha512-ysMJX0Gnp5PIqi3a1N0/c0G+tv57IAQp2kll320FIrFAOSfh7lti9vo8I5tjy2eJzY8eu8HSrSWFscx0ikVdKw=="
-  "resolved" "https://registry.npmjs.org/hardhat-helpers/-/hardhat-helpers-0.1.30.tgz"
-  "version" "0.1.30"
+  "integrity" "sha512-1GRgItWbwuPBXsaZDVgiudQWIr1pjuqf241Z8RacjsX3svWpHYdKOzWPYVHHmY6daB1fve8odIzyLjTs5ZVE+g=="
+  "resolved" "https://registry.npmjs.org/hardhat-helpers/-/hardhat-helpers-0.1.33.tgz"
+  "version" "0.1.33"
 
 "hardhat@^2.0.0", "hardhat@^2.9.4":
   "integrity" "sha512-mNJFbVG479HwOzxiaLxobyvED2M1aEAuPPYhEo1+88yicMDSTrU2JIS7vV+V0GSNQKaDoiHCmV6bcKjiljT/dQ=="
@@ -7965,11 +7960,10 @@
     "obliterator" "^2.0.0"
 
 "mocha@^10.0.0":
-  "integrity" "sha512-0Wl+elVUD43Y0BqPZBzZt8Tnkw9CMUdNYnUsTfOM1vuhJVZL+kiesFYsqwBkEEuEixaiPe5ZQdqDgX2jddhmoA=="
-  "resolved" "https://registry.npmjs.org/mocha/-/mocha-10.0.0.tgz"
-  "version" "10.0.0"
+  "integrity" "sha512-vUF7IYxEoN7XhQpFLxQAEMtE4W91acW4B6En9l97MwE9stL1A9gusXfoHZCLVHDUJ/7V5+lbCM6yMqzo5vNymg=="
+  "resolved" "https://registry.npmjs.org/mocha/-/mocha-10.1.0.tgz"
+  "version" "10.1.0"
   dependencies:
-    "@ungap/promise-all-settled" "1.1.2"
     "ansi-colors" "4.1.1"
     "browser-stdout" "1.3.1"
     "chokidar" "3.5.3"
@@ -9534,10 +9528,10 @@
   dependencies:
     "type-fest" "^0.7.1"
 
-"stash-renting-sdk@^0.0.3-s":
-  "integrity" "sha512-U0wRrjt88+4yL6XHFVPwBAga1G/n6w7EudjHq22oNFnel1GVlAAg6tfv8rnO3JOgqFfDZs0IBNQVNC50J4a9ug=="
-  "resolved" "https://registry.npmjs.org/stash-renting-sdk/-/stash-renting-sdk-0.0.3-s.tgz"
-  "version" "0.0.3-s"
+"stash-renting-sdk@^0.0.3-y1":
+  "integrity" "sha512-aoI43dcKXJbPwfGhDzBYQHDF/NgypOm3nyJVjglVWa/ht1unAf4j/EVsECi0fVqpX8y+1FTzEljlRF7+wWfZqA=="
+  "resolved" "https://registry.npmjs.org/stash-renting-sdk/-/stash-renting-sdk-0.0.3-y1.tgz"
+  "version" "0.0.3-y1"
   dependencies:
     "@ethersproject/abstract-signer" "^5.7.0"
     "@ethersproject/bignumber" "^5.7.0"
@@ -9545,7 +9539,7 @@
     "@ethersproject/providers" "^5.7.0"
     "@ethersproject/units" "^5.7.0"
     "@ethersproject/wallet" "^5.7.0"
-    "@stash-nft/rental-contracts" "^0.0.9-beta.4"
+    "@stash-nft/rental-contracts" "0.0.9-beta.4"
     "axios" "^0.27.2"
     "dotenv" "^16.0.1"
     "ethers" "^5.7.0"
