@@ -293,8 +293,11 @@ export default function Home() {
   return (
    <>
    <Box p={5}>
-      <ConnectButton />
-      {!isChainCompatible && (
+       <Flex justifyContent={'space-between'}> 
+        <ConnectButton />
+       <Button onClick={() => window.open('https://docs.joinstash.io/docs')}>Open SDK Docs</Button>
+       </Flex>
+      {chain?.id && !isChainCompatible && (
         <Alert status='error' mt={4}>
           <AlertIcon />
           You're on a wrong network. Supported chains are: Goerli, Mumbai and BSC Testnet
