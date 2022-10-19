@@ -3040,10 +3040,10 @@
     "superstruct" "^0.14.2"
     "tweetnacl" "^1.0.3"
 
-"@stash-nft/rental-contracts@^0.0.9-beta.4", "@stash-nft/rental-contracts@0.0.9-beta.4":
-  "integrity" "sha512-aqz04t4BfNHznM7HwtCR9ATdZvdCEnwymjSXtFIjVrekQ+ax/CsTNPupIqZ/T5hN40ERVs9aUg/Q5zlDZMj1rw=="
-  "resolved" "https://registry.npmjs.org/@stash-nft/rental-contracts/-/rental-contracts-0.0.9-beta.4.tgz"
-  "version" "0.0.9-beta.4"
+"@stash-nft/rental-contracts@0.0.10":
+  "integrity" "sha512-fd2ChV1zlbgLfn3whJKyXUEvwvjhgNY/bd+N3pRWSKUrTJH3or0Pr5nlvkQEF++w4Fe6VZ6Oe4QYHxObx5Gz1g=="
+  "resolved" "https://registry.npmjs.org/@stash-nft/rental-contracts/-/rental-contracts-0.0.10.tgz"
+  "version" "0.0.10"
 
 "@swc/helpers@0.4.11":
   "integrity" "sha512-rEUrBSGIoSFuYxwBYtlUFMlE2CwGhmW+w9355/5oduSw8e5h2+Tj4UrAGNNgP9915++wj5vkQo0UuOBqOAq4nw=="
@@ -9528,10 +9528,10 @@
   dependencies:
     "type-fest" "^0.7.1"
 
-"stash-renting-sdk@^0.0.3-y1":
-  "integrity" "sha512-aoI43dcKXJbPwfGhDzBYQHDF/NgypOm3nyJVjglVWa/ht1unAf4j/EVsECi0fVqpX8y+1FTzEljlRF7+wWfZqA=="
-  "resolved" "https://registry.npmjs.org/stash-renting-sdk/-/stash-renting-sdk-0.0.3-y1.tgz"
-  "version" "0.0.3-y1"
+"stash-renting-sdk@^0.0.4-beta3":
+  "integrity" "sha512-p5WsxIXMj1/Z43ybEle9ZCqxIfqKolN7D6Z7RyqSEriwLLRZ8aoCMMLe+jI8OPs6K+tY3OjUCvVi9MF9lYFhLA=="
+  "resolved" "https://registry.npmjs.org/stash-renting-sdk/-/stash-renting-sdk-0.0.4-beta3.tgz"
+  "version" "0.0.4-beta3"
   dependencies:
     "@ethersproject/abstract-signer" "^5.7.0"
     "@ethersproject/bignumber" "^5.7.0"
@@ -9539,7 +9539,7 @@
     "@ethersproject/providers" "^5.7.0"
     "@ethersproject/units" "^5.7.0"
     "@ethersproject/wallet" "^5.7.0"
-    "@stash-nft/rental-contracts" "0.0.9-beta.4"
+    "@stash-nft/rental-contracts" "0.0.10"
     "axios" "^0.27.2"
     "dotenv" "^16.0.1"
     "ethers" "^5.7.0"

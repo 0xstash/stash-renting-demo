@@ -19,7 +19,7 @@
     "next": "12.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "stash-renting-sdk": "^0.0.3-y1",
+    "stash-renting-sdk": "^0.0.4-beta3",
     "wagmi": "^0.6.6"
   },
   "devDependencies": {

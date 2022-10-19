@@ -2,8 +2,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useSigner, useNetwork } from 'wagmi'
 import { Stash, NFTStandard, Chain, SupportedChain } from 'stash-renting-sdk'
 import { useState, useEffect } from 'react';
-import { Box, Button, Flex, Heading, Text, Input, FormControl, FormLabel, Switch, Alert, AlertIcon } from '@chakra-ui/react';
-import { ethers } from 'ethers'
+import { Box, Button, Flex, Heading, Text, Input, FormControl, FormLabel, Switch, Alert, AlertIcon, Stack, Drawer } from '@chakra-ui/react';
 
 export default function Home() {
 
@@ -14,7 +13,7 @@ export default function Home() {
   const [payoutRecipients, setPayoutRecipients] = useState();
   const [nftAddress, setNftAddress] = useState();
 
-  const [apiKey, setApiKey] = useState('056a11df8ec19003cd4dd4b34e05c55c55c1e06d');
+  const [apiKey, setApiKey] = useState();
   const [tokenVal, setToken] = useState();
   const [lendBtn, setLendBtn] = useState(false);
   const [endLendBtn, setEndLendBtn] = useState(false);
@@ -26,7 +25,7 @@ export default function Home() {
   const [amount, setAmount] = useState(1);
   const [expiry, setExpiry] = useState();
   const [perDayPrice, setPerDayPrice] = useState();
-  const [erc20Address, setErc20Address] = useState('0xd73D2595A37AC493f8c4c727b4161995F09eEb13');
+  const [erc20Address, setErc20Address] = useState();
   const [revShare, setRevShare] = useState();
   const [buyPrice, setBuyPrice] = useState();
   const [maxRentalDays, setMaxRentalDays] = useState();
@@ -35,10 +34,14 @@ export default function Home() {
   const { data: signer } = useSigner();
   const { chain } = useNetwork();
 
+  const defaultApiKey = '056a11df8ec19003cd4dd4b34e05c55c55c1e06d';
+  const defaultERC20 = '0xd73D2595A37AC493f8c4c727b4161995F09eEb13';
+
   const handleGetNFTData = async () => {
     if(signer?._address && nftAddress && tokenVal) {
+      const key = apiKey ?? defaultApiKey;
       setApiBtn(true);
-      const stash = new Stash(apiKey, signer, connectedChainId, { 
+      const stash = new Stash(key, signer, connectedChainId, { 
         ERC721ContractAddress: nftAddress,
         ERC1155ContractAddress: nftAddress
       } );
@@ -57,13 +60,15 @@ export default function Home() {
 
   const handleNFTLend = async () => {
     if(signer?._address) {
-      if(nftAddress && tokenVal && expiry && perDayPrice && erc20Address && revShare && buyPrice && maxRentalDays && amount > 0) {
+      if(nftAddress && tokenVal && expiry && perDayPrice && revShare && buyPrice && maxRentalDays && amount > 0) {
         setLendBtn(true);
-        const stash = new Stash(apiKey, signer, connectedChainId, { 
+        const key = apiKey ?? defaultApiKey;
+        const stash = new Stash(key, signer, connectedChainId, { 
           ERC721ContractAddress: nftAddress,
           ERC1155ContractAddress: nftAddress
         } );
         const stashMarket = stash.contracts.market;
+        const erc20 = erc20Address ?? defaultERC20;
 
         // Uncomment for retrieving wrapped address
         // const wrappedAddress = await stash.contracts.wrapperFactory.getWrappedAddress(nftStandard);
@@ -112,7 +117,7 @@ export default function Home() {
           nftStandard,
           parseInt(expiry),
           parseFloat(perDayPrice),
-          erc20Address,
+          erc20,
           parseFloat(revShare),
           parseFloat(buyPrice),
           parseInt(maxRentalDays),
@@ -140,35 +145,14 @@ export default function Home() {
     if(signer?._address) {
       if(nftAddress && tokenVal && rentDuration) {
         setRentBtn(true);
-        const stash = new Stash(apiKey, signer, connectedChainId, { 
+        const key = apiKey ?? defaultApiKey;
+        const stash = new Stash(key, signer, connectedChainId, { 
           ERC721ContractAddress: nftAddress,
           ERC1155ContractAddress: nftAddress
         } );
         const stashMarket = stash.contracts.market;
 
-      //   const abi = [
-      //     // Read-Only Functions
-      //     "function balanceOf(address owner) view returns (uint256)",
-      //     "function decimals() view returns (uint8)",
-      //     "function symbol() view returns (string)",
-      
-      //     // Authenticated Functions
-      //     "function transfer(address to, uint amount) returns (bool)",
-      
-      //     // Events
-      //     "event Transfer(address indexed from, address indexed to, uint amount)"
-      // ];
-      
-      //   // This can be an address or an ENS name
-      //   const address = "0x07865c6e87b9f70255377e024ace6630c1eaa37f";
-      //   const erc20Contract = new ethers.Contract(address, abi, signer);
-
-      //   const decimals = await erc20Contract.decimals();
-      //   const price = "1.0";
-      //   const parsed = ethers.utils.parseUnits(price, decimals);
-      //   console.log('parsed', parsed);
-      //   setRentBtn(false);
-
+        // Uncomment for retrieving rental terms
         // const terms = await stashMarket.contract.getRentalTerms(11);
         // console.log('terms', terms);
         // setRentBtn(false);
@@ -197,7 +181,8 @@ export default function Home() {
     if(signer?._address) {
       if(nftAddress && tokenVal) {
         setEndLendBtn(true);
-        const stash = new Stash(apiKey, signer, connectedChainId, { 
+        const key = apiKey ?? defaultApiKey;
+        const stash = new Stash(key, signer, connectedChainId, { 
           ERC721ContractAddress: nftAddress,
           ERC1155ContractAddress: nftAddress
         } );
@@ -244,7 +229,8 @@ export default function Home() {
     if(signer?._address) {
       if(nftAddress && tokenVal) {
         setBuyBtn(true);
-        const stash = new Stash(apiKey, signer, connectedChainId, { 
+        const key = apiKey ?? defaultApiKey;
+        const stash = new Stash(key, signer, connectedChainId, { 
           ERC721ContractAddress: nftAddress,
           ERC1155ContractAddress: nftAddress
         } );
@@ -272,7 +258,8 @@ export default function Home() {
     if(signer?._address) {
       if(nftAddress && tokenVal) {
         setGetRecipientsBtn(true);
-        const stash = new Stash(apiKey, signer, connectedChainId, { 
+        const key = apiKey ?? defaultApiKey;
+        const stash = new Stash(key, signer, connectedChainId, { 
           ERC721ContractAddress: nftAddress
         } );
   
@@ -304,6 +291,7 @@ export default function Home() {
   }, [chain])
 
   return (
+   <>
    <Box p={5}>
       <ConnectButton />
       {!isChainCompatible && (
@@ -312,84 +300,81 @@ export default function Home() {
           You're on a wrong network. Supported chains are: Goerli, Mumbai and BSC Testnet
         </Alert>
       )}
-       {signer?._address && 
-       (
-        <>
-          <Flex flexDirection={'column'} mt={10} gap={10}>
-            <Flex flexDirection={'column'} gap={5}>
-              <Heading size={'md'}>NFT Data</Heading>
-              <Input placeholder='NFT Contract Address' size='md' width={'35%'} value={nftAddress} onChange={(e) => setNftAddress(e.target.value)}/>
-              <Input placeholder='Token ID' size='md' width={'35%'} value={tokenVal} onChange={(e) => setToken(e.target.value)}/>
-              <FormControl display='flex' alignItems='center'>
-                <FormLabel htmlFor='nftStandard' mb='0'>
-                  E721 / E1155
-                </FormLabel>
-                <Switch id='nftStandard' onChange={(e) => {
-                  if(e.target.checked) {
-                    setNftStandard(NFTStandard.E1155);
-                  } else {
-                    setNftStandard(NFTStandard.E721);
-                  }
-                }} />
-              </FormControl>
-            </Flex>
-            <Flex flexDirection={'column'} gap={5}>
-              <Heading size={'md'}>Fetch Asset Information From API</Heading>
-              <Input placeholder='API Key' size='md' width={'35%'} value={apiKey} onChange={(e) => setApiKey(e.target.value)}/>
-              <Flex gap={10}>
-                <Button w={'fit-content'} onClick={handleGetNFTData} isLoading={apiBtn}>Fetch Info</Button>
+      {signer?._address &&
+        (
+          <>
+            <Flex flexDirection={'column'} mt={10} gap={10}>
+              <Flex flexDirection={'column'} gap={5}>
+                <Heading size={'md'}>NFT Data</Heading>
+                <Input placeholder='NFT Contract Address' size='md' width={'35%'} value={nftAddress} onChange={(e) => setNftAddress(e.target.value)} />
+                <Input placeholder='Token ID' size='md' width={'35%'} value={tokenVal} onChange={(e) => setToken(e.target.value)} />
+                <FormControl display='flex' alignItems='center'>
+                  <FormLabel htmlFor='nftStandard' mb='0'>
+                    E721 / E1155
+                  </FormLabel>
+                  <Switch id='nftStandard' onChange={(e) => {
+                    if (e.target.checked) {
+                      setNftStandard(NFTStandard.E1155);
+                    } else {
+                      setNftStandard(NFTStandard.E721);
+                    }
+                  } } />
+                </FormControl>
+              </Flex>
+              <Flex flexDirection={'column'} gap={5}>
+                <Heading size={'md'}>Fetch Asset Information From API</Heading>
+                <Input placeholder='API Key' size='md' width={'35%'} value={apiKey} onChange={(e) => setApiKey(e.target.value)} />
+                <Flex gap={10}>
+                  <Button w={'fit-content'} onClick={handleGetNFTData} isLoading={apiBtn}>Fetch Info</Button>
                   {nftData &&
-                  <Box p={4}  borderWidth='1px' borderRadius='lg' overflow='hidden'>
-                    <Text>Token ID: {nftData?.token_id}</Text>
-                    <Text>NFT Address: {nftData?.nft_address}</Text>
-                  </Box>
-                  }
+                    <Box p={4} borderWidth='1px' borderRadius='lg' overflow='hidden'>
+                      <Text>Token ID: {nftData?.token_id}</Text>
+                      <Text>NFT Address: {nftData?.nft_address}</Text>
+                    </Box>}
+                </Flex>
               </Flex>
-            </Flex>
-            <Flex flexDirection={'column'} gap={5}>
-              <Heading size={'md'}>Fetch Payout Recipients</Heading>
-              <Flex gap={10}>
-                <Button w={'fit-content'} onClick={handleGetPayoutRecipients} isLoading={getRecipientsBtn}>Fetch Payout Recipients</Button>
+              <Flex flexDirection={'column'} gap={5}>
+                <Heading size={'md'}>Fetch Payout Recipients</Heading>
+                <Flex gap={10}>
+                  <Button w={'fit-content'} onClick={handleGetPayoutRecipients} isLoading={getRecipientsBtn}>Fetch Payout Recipients</Button>
                   {payoutRecipients &&
-                  <Box p={4}  borderWidth='1px' borderRadius='lg' overflow='hidden'>
-                    <Text>Address: {payoutRecipients[0]?.address}</Text>
-                    <Text>Share Point: {payoutRecipients[0]?.sharePoint}</Text>
-                    <Text>Role: {payoutRecipients[0]?.role}</Text>
-                  </Box>
-                  }
+                    <Box p={4} borderWidth='1px' borderRadius='lg' overflow='hidden'>
+                      <Text>Address: {payoutRecipients[0]?.address}</Text>
+                      <Text>Share Point: {payoutRecipients[0]?.sharePoint}</Text>
+                      <Text>Role: {payoutRecipients[0]?.role}</Text>
+                    </Box>}
+                </Flex>
+              </Flex>
+              <Flex flexDirection={'column'} gap={5}>
+                <Heading size={'md'}>Lend Asset</Heading>
+                {(nftStandard == NFTStandard.E1155) &&
+                  <Input type={'number'} placeholder='Amount' size='md' width={'35%'} value={amount} onChange={(e) => setAmount(e.target.value)} />}
+                <Input type={'number'} placeholder='Expiry in days' size='md' width={'35%'} value={expiry} onChange={(e) => setExpiry(e.target.value)} />
+                <Input type={'number'} placeholder='Per day price' size='md' width={'35%'} value={perDayPrice} onChange={(e) => setPerDayPrice(e.target.value)} />
+                <Input placeholder='ERC20 Address' size='md' width={'35%'} value={erc20Address} onChange={(e) => setErc20Address(e.target.value)} />
+                <Input type={'number'} placeholder='Revenue share' size='md' width={'35%'} value={revShare} onChange={(e) => setRevShare(e.target.value)} />
+                <Input type={'number'} placeholder='Buy price' size='md' width={'35%'} value={buyPrice} onChange={(e) => setBuyPrice(e.target.value)} />
+                <Input type={'number'} placeholder='Max rental days' size='md' width={'35%'} value={maxRentalDays} onChange={(e) => setMaxRentalDays(e.target.value)} />
+                <Button w={'fit-content'} onClick={handleNFTLend} isLoading={lendBtn}>Lend Asset</Button>
+              </Flex>
+              <Flex flexDirection={'column'} gap={5}>
+                <Heading size={'md'}>Rent Asset</Heading>
+                <Input type={'number'} placeholder='Rent Duration' size='md' width={'35%'} value={rentDuration} onChange={(e) => setRentDuration(e.target.value)} />
+                <Button w={'fit-content'} onClick={handleNFTRent} isLoading={rentBtn}>Rent Asset</Button>
+              </Flex>
+              <Flex flexDirection={'column'} gap={5}>
+                <Heading size={'md'}>End Lend Asset</Heading>
+                <Button w={'fit-content'} onClick={handleEndLend} isLoading={endLendBtn}>End Lend</Button>
+              </Flex>
+              <Flex flexDirection={'column'} gap={5}>
+                <Heading size={'md'}>Buy Asset</Heading>
+                <Button w={'fit-content'} onClick={handleBuy} isLoading={buyBtn}>Buy</Button>
               </Flex>
             </Flex>
-            <Flex flexDirection={'column'} gap={5}>
-              <Heading size={'md'}>Lend Asset</Heading>
-              { (nftStandard == NFTStandard.E1155) &&
-                <Input type={'number'} placeholder='Amount' size='md' width={'35%'} value={amount} onChange={(e) => setAmount(e.target.value)}/>
-              }
-              <Input type={'number'} placeholder='Expiry in days' size='md' width={'35%'} value={expiry} onChange={(e) => setExpiry(e.target.value)}/>
-              <Input type={'number'} placeholder='Per day price' size='md' width={'35%'} value={perDayPrice} onChange={(e) => setPerDayPrice(e.target.value)}/>
-              <Input placeholder='ERC20 Address' size='md' width={'35%'} value={erc20Address} onChange={(e) => setErc20Address(e.target.value)}/>
-              <Input type={'number'} placeholder='Revenue share' size='md' width={'35%'} value={revShare} onChange={(e) => setRevShare(e.target.value)}/>
-              <Input type={'number'} placeholder='Buy price' size='md' width={'35%'} value={buyPrice} onChange={(e) => setBuyPrice(e.target.value)}/>
-              <Input type={'number'} placeholder='Max rental days' size='md' width={'35%'} value={maxRentalDays} onChange={(e) => setMaxRentalDays(e.target.value)}/>
-              <Button w={'fit-content'} onClick={handleNFTLend} isLoading={lendBtn}>Lend Asset</Button>
-            </Flex>
-            <Flex flexDirection={'column'} gap={5}>
-              <Heading size={'md'}>Rent Asset</Heading>
-              <Input type={'number'} placeholder='Rent Duration' size='md' width={'35%'} value={rentDuration} onChange={(e) => setRentDuration(e.target.value)}/>
-              <Button w={'fit-content'} onClick={handleNFTRent} isLoading={rentBtn}>Rent Asset</Button>
-            </Flex>
-            <Flex flexDirection={'column'} gap={5}>
-              <Heading size={'md'}>End Lend Asset</Heading>
-              <Button w={'fit-content'} onClick={handleEndLend} isLoading={endLendBtn}>End Lend</Button>
-            </Flex>
-            <Flex flexDirection={'column'} gap={5}>
-              <Heading size={'md'}>Buy Asset</Heading>
-              <Button w={'fit-content'} onClick={handleBuy} isLoading={buyBtn}>Buy</Button>
-            </Flex>
-          </Flex>
-          
-        </>
-       )
-       }
-   </Box>
+
+          </>
+        )}
+    </Box>
+    </>
   )
 }
