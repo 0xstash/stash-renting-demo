@@ -1,10 +1,13 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useSigner, useNetwork } from 'wagmi'
-import { Stash, NFTStandard, Chain, SupportedChain } from 'stash-renting-sdk'
+import { Stash, NFTStandard, SupportedChain } from 'stash-renting-sdk'
 import { useState, useEffect } from 'react';
-import { Box, Button, Flex, Heading, Text, Input, FormControl, FormLabel, Switch, Alert, AlertIcon, Stack, Drawer } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, Text, Input, FormControl, FormLabel, Switch, Alert, AlertIcon } from '@chakra-ui/react';
 
 export default function Home() {
+
+  const defaultApiKey = process.env.DEFAULT_API_KEY;
+  const defaultERC20 = '0xd73D2595A37AC493f8c4c727b4161995F09eEb13';
 
   const [connectedChainId, setConnectedChainId] = useState();
   const [isChainCompatible, setIsChainCompatible] = useState(false); 
@@ -13,7 +16,7 @@ export default function Home() {
   const [payoutRecipients, setPayoutRecipients] = useState();
   const [nftAddress, setNftAddress] = useState();
 
-  const [apiKey, setApiKey] = useState();
+  const [apiKey, setApiKey] = useState(defaultApiKey);
   const [tokenVal, setToken] = useState();
   const [lendBtn, setLendBtn] = useState(false);
   const [endLendBtn, setEndLendBtn] = useState(false);
@@ -33,9 +36,6 @@ export default function Home() {
 
   const { data: signer } = useSigner();
   const { chain } = useNetwork();
-
-  const defaultApiKey = '056a11df8ec19003cd4dd4b34e05c55c55c1e06d';
-  const defaultERC20 = '0xd73D2595A37AC493f8c4c727b4161995F09eEb13';
 
   const handleGetNFTData = async () => {
     if(signer?._address && nftAddress && tokenVal) {
